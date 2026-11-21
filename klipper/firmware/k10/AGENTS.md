@@ -1,6 +1,6 @@
 # AGENTS.md — firmware/k10/
 
-Firmware Klipper para la **EasyThreed K10** (MCU **GD32F303CBT6** = clon de STM32F103, 128 KB flash, 48 KB RAM). El K10 es la placa donante del proyecto Frankenprinter — gobierna **sólo extrusor + hotend** en el reparto multi-MCU.
+Firmware Klipper para la **EasyThreed K10** (MCU **GD32F303CBT6** = clon de STM32F103, 128 KB flash, 48 KB RAM). Aquí: la K10 completa con Klipper (hack USB, `klipper/k10/`). En el proyecto aparte *frankenprinter* esta placa gobierna solo extrusor + hotend en un multi-MCU.
 
 ## Layout
 

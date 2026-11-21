@@ -7,7 +7,7 @@ actuador de la K10. Necesitas mapear, como mínimo:
 - **Calefactor**: gate del MOSFET HY1403 (`heater_pin`).
 - **Termistor**: pin ADC del divisor (`sensor_pin`).
 - **Fan**: salida controlable.
-- (Opcional) endstops, si quisieras usarlos — pero en esta arquitectura los pones en el CNC.
+- (Opcional) endstops: el reversing solo encontró uno (`PA3`).
 
 Tienes tres vías complementarias; combínalas. La 1 es la más rápida si funciona.
 
@@ -103,11 +103,11 @@ SWD: SWDIO=PA13  SWCLK=PA14  NRST=PB4   (confirmados por reversing publicado)
 ## Resultado
 
 Cuando el mapa esté completo y verificado, traslada los valores a
-`klipper-config/include/extruder-hotend.cfg` (reemplaza los `P??`). A partir de ahí, calibra térmica y
-extrusor según [08](08-calibracion.md).
+[`../k10/printer.cfg`](../k10/printer.cfg) (reemplaza los `P??`). A partir de ahí, `PID_CALIBRATE` y
+calibración del extrusor ([Klipper: Config checks](https://www.klipper3d.org/Config_checks.html)).
 
 Si en algún punto te bloqueas (pin que no aparece, chip difícil de trazar), recuerda la salida de bajo
-riesgo: **Opción B** ([00](00-RESUMEN-EJECUTIVO.md)) — un board barato con pinout conocido para el cabezal,
+riesgo: **Opción B** — un board barato con pinout conocido para el cabezal,
 reutilizando el hotend/motor de la K10 como piezas.
 
 Fuentes: reversing K10 <https://palmarci.me/blog/2025-05-02-easythreed-k10-3d-printer-main-board-reversing/index.html> ·

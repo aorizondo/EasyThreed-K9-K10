@@ -48,7 +48,7 @@ Usa una USART del GD32 (USART1: **PA9 = TX**, **PA10 = RX**) contra el UART hard
 
 - Regla: **TX de un lado → RX del otro** (cruzado). Si no conecta, intercambia los dos cables de datos.
 - En la Pi: `sudo raspi-config` → Interface → Serial → consola por serie **NO**, hardware serial **SÍ**. Reinicia.
-- Klipper: comunicación **Serial (USART1, PA9/PA10)**. En `[mcu k10]`: `serial: /dev/ttyAMA0` (o `/dev/serial0`).
+- Klipper: comunicación **Serial (USART1, PA9/PA10)**. En `[mcu]`: `serial: /dev/ttyAMA0` (o `/dev/serial0`).
 - 3.3 V nativo en ambos lados; **no** uses los pines de 5 V de la Pi para señal.
 
 ---
@@ -88,7 +88,7 @@ kapton (alivio de tensión), y **masa común** siempre.
 - [ ] Klipper flasheado en la K10 (ver [05](05-flasheo-klipper.md)) con la interfaz correcta (USB o Serial).
 - [ ] (A) pull-up 1.5 kΩ en D+ puesta · (B) `raspi-config` con hardware serial activado.
 - [ ] `ls /dev/serial/by-id/*` (A/C) o `/dev/ttyAMA0` (B) presente.
-- [ ] `serial:` de `[mcu k10]` apunta a la ruta correcta.
-- [ ] `FIRMWARE_RESTART` sin "mcu 'k10': Unable to connect".
+- [ ] `serial:` de `[mcu]` apunta a la ruta correcta.
+- [ ] `FIRMWARE_RESTART` sin "mcu: Unable to connect".
 - [ ] Si falla UART: intercambia TX/RX; confirma baud; 3.3 V; GND común.
 - [ ] Si falla USB: revisa la pull-up de 1.5 kΩ y que D+/D− no estén cambiados.

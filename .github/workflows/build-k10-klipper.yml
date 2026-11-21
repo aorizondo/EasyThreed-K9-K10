@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'firmware/k10/klipper.config'
+      - 'klipper/firmware/k10/klipper.config'
       - '.github/workflows/build-k10-klipper.yml'
 
 env:
@@ -33,26 +33,26 @@ jobs:
 
       - name: Clonar Klipper (commit fijado)
         run: |
-          git clone https://github.com/Klipper3d/klipper.git klipper
-          git -C klipper checkout "$KLIPPER_COMMIT"
-          git -C klipper log -1 --oneline
+          git clone https://github.com/Klipper3d/klipper.git klipper-src
+          git -C klipper-src checkout "$KLIPPER_COMMIT"
+          git -C klipper-src log -1 --oneline
 
       - name: Aplicar configuracion de la K10
         run: |
-          cp firmware/k10/klipper.config klipper/.config
-          make -C klipper olddefconfig
+          cp klipper/firmware/k10/klipper.config klipper-src/.config
+          make -C klipper-src olddefconfig
 
       - name: Mostrar configuracion efectiva
         run: |
-          grep -E 'CONFIG_MCU=|FLASH_APPLICATION_ADDRESS|CONFIG_USBSERIAL=|MACH_STM32F103=|DISABLE_SWD|CLOCK_REF_8M|FLASH_START_4000' klipper/.config
+          grep -E 'CONFIG_MCU=|FLASH_APPLICATION_ADDRESS|CONFIG_USBSERIAL=|MACH_STM32F103=|DISABLE_SWD|CLOCK_REF_8M|FLASH_START_4000' klipper-src/.config
 
       - name: Compilar
-        run: make -C klipper -j"$(nproc)"
+        run: make -C klipper-src -j"$(nproc)"
 
       - name: Verificar direccion de carga 0x08004000
         run: |
-          arm-none-eabi-objdump -h klipper/out/klipper.elf | grep -E '\.text|\.isr|Algn' || true
-          if arm-none-eabi-objdump -h klipper/out/klipper.elf | grep -q '08004000'; then
+          arm-none-eabi-objdump -h klipper-src/out/klipper.elf | grep -E '\.text|\.isr|Algn' || true
+          if arm-none-eabi-objdump -h klipper-src/out/klipper.elf | grep -q '08004000'; then
             echo "OK: el firmware se enlaza en 0x08004000 (offset 16KiB del bootloader K10)"
           else
             echo "FALLO: no se encontro la direccion 0x08004000 en el ELF"; exit 1
@@ -60,7 +60,7 @@ jobs:
 
       - name: Renombrar a p10_printer.bin
         run: |
-          cp klipper/out/klipper.bin p10_printer.bin
+          cp klipper-src/out/klipper.bin p10_printer.bin
           echo "Tamano:"; ls -l p10_printer.bin | awk '{print $5" bytes"}'
           echo "SHA256:"; sha256sum p10_printer.bin
           # 128KB flash - 16KB bootloader = 112KB (114688 bytes) maximo para la app

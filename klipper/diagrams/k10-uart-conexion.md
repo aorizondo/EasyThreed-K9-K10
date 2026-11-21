@@ -64,7 +64,7 @@ Klipper: interfaz de comunicación **USB (PA11/PA12)**. Resultado: `/dev/serial/
 ```
 
 En la Pi: `sudo raspi-config` → Serial → consola por serie **NO**, hardware serial **SÍ**.
-Klipper: comunicación **Serial (USART1, PA9/PA10)**. En `[mcu k10]`: `serial: /dev/ttyAMA0`.
+Klipper: comunicación **Serial (USART1, PA9/PA10)**. En `[mcu]`: `serial: /dev/ttyAMA0`.
 
 ---
 

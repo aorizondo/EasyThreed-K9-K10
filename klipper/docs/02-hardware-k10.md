@@ -44,8 +44,8 @@ Fuente principal: <https://palmarci.me/blog/2025-05-02-easythreed-k10-3d-printer
 - **4× Heroic HR4988** (clon de A4988 con traductor integrado): X, Y, Z y extrusor.
 - **Van soldados en la placa** (no son módulos extraíbles). No son TMC: **sin** StealthChop, **sin**
   UART, **sin** sensorless homing.
-- En esta arquitectura solo usarás **el driver del extrusor** de la K10 (los de X/Y/Z los pone el
-  CNC). Tendrás que localizar por reversing los pines step/dir/enable de **ese** driver.
+- Hay que localizar por reversing los pines step/dir/enable de cada driver
+  ([firmware/k10/reversing.md](../firmware/k10/reversing.md)).
 
 ---
 
@@ -54,7 +54,7 @@ Fuente principal: <https://palmarci.me/blog/2025-05-02-easythreed-k10-3d-printer
 - MOSFET de potencia **Hooyi HY1403 (N-channel)** conmuta el cartucho calefactor del hotend.
   → El pin de **gate** de ese MOSFET es el `heater_pin` que buscas.
 - **Termistor** NTC en divisor resistivo hacia un **pin ADC** del GD32 → ese es el `sensor_pin`.
-  Tipo probable: NTC 100k. Verifica el `sensor_type` por calibración/medición (ver [08](08-calibracion.md)).
+  Tipo probable: NTC 100k. Verifica el `sensor_type` por calibración/medición (ver [PID y termistores en Klipper](https://www.klipper3d.org/Config_checks.html)).
 - Regulador **AMS1117** (genera el 3.3 V de la lógica).
 
 ---
@@ -98,10 +98,10 @@ Pines de debug accesibles (clave para reversing y para flashear Klipper sin boot
 
 ## Resumen para Klipper (Opción A)
 
-| Recurso K10 | Uso en la frankenprinter | Pin Klipper |
+| Recurso K10 | Uso en Klipper | Pin Klipper |
 |-------------|--------------------------|-------------|
-| Driver extrusor (HR4988) | `[extruder]` step/dir/enable | `k10:P??` (reversing) |
-| Gate MOSFET HY1403 | `[extruder] heater_pin` | `k10:P??` (reversing) |
-| Divisor termistor → ADC | `[extruder] sensor_pin` | `k10:P??` (reversing) |
-| Fan | `[fan]` / `[heater_fan]` | `k10:P??` (reversing) |
-| UART soldado al MCU | enlace serie con la Pi | (define `serial:` en `[mcu k10]`) |
+| Driver extrusor (HR4988) | `[extruder]` step/dir/enable | `P??` (reversing) |
+| Gate MOSFET HY1403 | `[extruder] heater_pin` | `P??` (reversing) |
+| Divisor termistor → ADC | `[extruder] sensor_pin` | `P??` (reversing) |
+| Fan | `[fan]` / `[heater_fan]` | `P??` (reversing) |
+| UART soldado al MCU | enlace serie con la Pi | (define `serial:` en `[mcu]`) |

@@ -118,7 +118,7 @@ Communication interface: USB (on PA11/PA12)      <-- ESTA es la clave de la opci
 [*] Disable SWD at startup (GD32)
 ```
 
-Tras `make`, flashea por SWD o SD (ver [docs/05](../docs/05-flasheo-klipper.md)). En `[mcu k10]`:
+Tras `make`, flashea por SWD o SD (ver [docs/05](../docs/05-flasheo-klipper.md)). En `[mcu]`:
 `serial: /dev/serial/by-id/usb-Klipper_stm32f103xe_XXXX-if00`.
 
 > ⚠️ **Importante — el USB nativo NO enumera hasta que Klipper esté flasheado.** El periférico USB del
