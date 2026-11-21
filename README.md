@@ -1,4 +1,37 @@
-# EasyThreeD-K9_ET4000PLUS
+# EasyThreed K9 / K10 — firmware abierto (Marlin y Klipper)
+
+Firmware, configuraciones y guías para las mini impresoras **EasyThreed K9** y **K10** de serie.
+Este repo es para las impresoras **originales**; las máquinas a medida construidas con piezas
+de la K9 (serie MK, "frankenprinter") están en
+[aorizondo/frankenprinter](https://github.com/aorizondo/frankenprinter).
+
+| Modelo | Placa / MCU | Marlin | Klipper |
+|---|---|---|---|
+| **K9** (y K7/X1/X3, misma placa) | ET4000+ ≈ MKS Robin Lite, **STM32F103RC** | ✅ este repo (`config/EasyThreeD/ET4000PLUS/`, CI que compila `mksLite.bin`) | ✅ firmware probado en la placa, `printer.cfg` sin probar en K9 completa → [klipper/k9](klipper/k9/README.md) |
+| K9 con placa **AT32F403** | ET4000+ revisión Artery | ❌ (solo el Marlin del fabricante) | ❌ |
+| **K10** | Propia, **GD32F303CBT6**; USB-C solo alimenta | ❌ (fábrica: firmware cerrado) | ⚠️ hack USB probado, pines incompletos → [klipper/k10](klipper/k10/README.md) |
+
+## Ramas
+
+| Rama | Contenido |
+|---|---|
+| `marlin` | Marlin 2.x para la K9 (desarrollo del sabor Marlin; el CI compila `mksLite.bin` en cada push) |
+| `klipper` | Solo `klipper/` + el CI de la K10 (desarrollo del sabor Klipper) |
+| `main` | Las dos unidas: lo que hay que descargar |
+
+Ramas de trabajo de Marlin: `k9-endstops`, `feedrate`.
+
+## Por dónde empezar
+
+- **K9 con Marlin**: sección *Installation* de abajo; perfil de Cura en [`cura-k9-profile/`](cura-k9-profile/README.md).
+- **K9 con Klipper**: [klipper/k9/README.md](klipper/k9/README.md).
+- **K10 con Klipper** (hay que soldar): [klipper/k10/README.md](klipper/k10/README.md).
+- Resumen de Klipper para las dos: [klipper/README.md](klipper/README.md).
+
+---
+
+# Marlin (K9)
+
 Marlin firmware for 3D Printer brand EasyThreeD model K9 board ET4000PLUS
 
 ## This is a hard fork from https://github.com/schmttc/EasyThreeD-K7-STM32
